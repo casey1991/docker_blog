@@ -19,3 +19,10 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
+  redis:
+    image: "redis:5"
+    restart: always
+    ports:
+        - "6379:6379"
+    volumes:
+      - ./db/redis:/data
