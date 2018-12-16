@@ -1,0 +1,21 @@
+version: "3"
+services:
+  node:
+    image: "node:10"
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./project:/home/node/app
+    ports:
+      - "4444:3000"
+    command: "npm run start:dev"
+  mongo:
+    image: "mongo:4.0.4"
+    restart: always
+    volumes:
+      - ./db/mongo/data/db:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password

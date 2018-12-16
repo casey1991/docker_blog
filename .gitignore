@@ -1,0 +1,7 @@
+# ignore vscode config
+.vscode/
+# ignore db folder
+db/
+# ignore project node_modules
+project/node_modules/
+
