@@ -1,0 +1,15 @@
+type Cat {
+  id: String!
+  name: String!
+  age: Int
+  breed: String
+}
+
+type Query {
+  cat(id: String!): Cat
+  cats: [Cat]
+}
+
+type Mutation {
+  createCat(name: String!, age: Int, breed: String): Cat
+}

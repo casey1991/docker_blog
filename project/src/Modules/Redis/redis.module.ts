@@ -1,7 +1,7 @@
-import {Module} from '@nestjs/common'
-import {RedisController} from './redis.controller'
+import { Module } from '@nestjs/common';
+import { RedisController } from './redis.controller';
 
 @Module({
-    controllers:[RedisController]
+  controllers: [RedisController],
 })
-export class RedisModule{}
+export class RedisModule {}
