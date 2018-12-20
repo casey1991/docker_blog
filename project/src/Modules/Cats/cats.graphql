@@ -12,4 +12,5 @@ type Query {
 
 type Mutation {
   createCat(name: String!, age: Int, breed: String): Cat
+  deleteCat(id: String!): Cat
 }

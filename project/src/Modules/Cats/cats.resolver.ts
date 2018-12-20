@@ -19,4 +19,8 @@ export class CatResolver {
   async createCat(@Args() cat) {
     return await this.catsService.create({ ...cat });
   }
+  @Mutation('deleteCat')
+  async deleteCat(@Args('id') id) {
+    return await this.catsService.delete({ _id: id });
+  }
 }
