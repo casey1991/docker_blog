@@ -17,7 +17,7 @@ services:
     volumes:
       - ./db/mongo/data/db:/data/db
     ports:
-      - "4445:27107"
+      - "4445:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
