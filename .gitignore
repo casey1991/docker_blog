@@ -4,4 +4,4 @@
 db/
 # ignore project node_modules
 project/node_modules/
-
+project/yarn-error.log
