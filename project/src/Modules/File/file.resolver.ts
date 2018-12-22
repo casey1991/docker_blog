@@ -12,5 +12,5 @@ export class FileResolver {
     return [];
   }
   @Mutation('createFile')
-  async createFile() {}
+  async createFile(@Args('file') file) {}
 }

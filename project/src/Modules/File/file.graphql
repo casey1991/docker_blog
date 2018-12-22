@@ -1,3 +1,5 @@
+scalar Upload
+
 type File {
   id: String!
   name: String!
@@ -10,5 +12,5 @@ type Query {
 }
 
 type Mutation {
-  createFile(name: String!): File
+  createFile(file: Upload!): File
 }
