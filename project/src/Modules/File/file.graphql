@@ -1,0 +1,14 @@
+type File {
+  id: String!
+  name: String!
+  miniType: String!
+  url: String!
+}
+type Query {
+  file(id: String!): File
+  files: [Cat]
+}
+
+type Mutation {
+  createFile(name: String!): File
+}
