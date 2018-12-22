@@ -26,3 +26,13 @@ services:
     restart: always
     volumes:
       - ./db/redis:/data
+  minio:
+    image: "minio/minio"
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./db/minio:/data
+    environment:
+      MINIO_ACCESS_KEY: caseywang
+      MINIO_SECRET_KEY: wangyang_1991
+    command: "server /data"
