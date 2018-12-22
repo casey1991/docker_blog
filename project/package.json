@@ -28,6 +28,7 @@
     "fs-extra": "^7.0.1",
     "graphql": "^14.0.2",
     "graphql-tools": "^4.0.3",
+    "minio": "^7.0.2",
     "mongoose": "^5.4.0",
     "redis": "^2.8.0",
     "reflect-metadata": "^0.1.12",
