@@ -3,7 +3,7 @@ import { Injectable, Inject, createParamDecorator } from '@nestjs/common';
 import { Cat } from './Interfaces/cat.interface';
 
 @Injectable()
-export class CatsService {
+export class CatService {
   constructor(
     @Inject('CatModelToken')
     private readonly catModel: Model<Cat>,

@@ -7,7 +7,7 @@ export class FileResolver {
     // return await this.catsService.findAll;
     return {};
   }
-  @Query('cats')
+  @Query('files')
   async cats() {
     return [];
   }

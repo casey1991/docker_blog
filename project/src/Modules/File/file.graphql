@@ -8,7 +8,7 @@ type File {
 }
 type Query {
   file(id: String!): File
-  files: [Cat]
+  files: [File]
 }
 
 type Mutation {
