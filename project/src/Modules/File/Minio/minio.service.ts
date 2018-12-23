@@ -1,4 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 
 @Injectable()
-export class MinioService {}
+export class MinioService {
+  constructor(@Inject('MinioToken') private readonly minio: any) {}
+}
