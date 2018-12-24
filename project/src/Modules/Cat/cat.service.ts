@@ -13,6 +13,11 @@ export class CatService {
     const cratedCat = new this.catModel(cat);
     return await cratedCat.save();
   }
+  async update(conditions: {}, update: {}): Promise<Cat> {
+    return await this.catModel.findOneAndUpdate(conditions, update, {
+      new: true,
+    });
+  }
   async delete(conditions: {}) {
     return await this.catModel.findOneAndRemove(conditions);
   }

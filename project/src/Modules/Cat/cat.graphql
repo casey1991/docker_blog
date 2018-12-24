@@ -1,6 +1,7 @@
 type Cat {
   id: String!
   name: String!
+  description: String
   age: Int
   breed: String
 }
@@ -11,6 +12,13 @@ type Query {
 }
 
 type Mutation {
-  createCat(name: String!, age: Int, breed: String): Cat
+  createCat(name: String!, age: Int, description: String, breed: String): Cat
+  updateCat(
+    id: String!
+    name: String
+    age: String
+    description: String
+    breed: String
+  ): Cat
   deleteCat(id: String!): Cat
 }
