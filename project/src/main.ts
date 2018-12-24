@@ -1,4 +1,5 @@
 import { NestFactory } from '@nestjs/core';
+import * as Cors from 'cors';
 import { Transport } from '@nestjs/microservices';
 import { AppModule } from './Modules/App/app.module';
 async function bootstrap() {
@@ -7,6 +8,7 @@ async function bootstrap() {
     transport: Transport.REDIS,
     options: { url: 'redis://redis:6379' },
   });
+  // app.enableCors();
   await app.startAllMicroservicesAsync();
   await app.listen(3000);
 }

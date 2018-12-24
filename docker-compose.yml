@@ -1,4 +1,4 @@
-version: "3"
+version: "3.5"
 services:
   node:
     image: "node:10"
@@ -11,6 +11,9 @@ services:
     ports:
       - "4444:3000"
     command: "npm run start:dev"
+    networks:
+      - frontend
+      - backend
   mongo:
     image: "mongo:4.0.4"
     restart: always
@@ -21,11 +24,15 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
+    networks:
+      - backend
   redis:
     image: "redis:5"
     restart: always
     volumes:
       - ./db/redis:/data
+    networks:
+      - backend
   minio:
     image: "minio/minio"
     ports:
@@ -36,3 +43,13 @@ services:
       MINIO_ACCESS_KEY: caseywang
       MINIO_SECRET_KEY: wangyang_1991
     command: "server /data"
+    networks:
+      - frontend
+      - backend
+networks:
+  frontend:
+    name: blog_frontend
+    driver: bridge
+  backend:
+    name: blog_backend
+    driver: bridge
