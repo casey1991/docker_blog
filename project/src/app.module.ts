@@ -19,6 +19,7 @@ import { FileModule } from './Modules/File/file.module';
     GraphQLModule.forRoot({
       typePaths: ['./**/*.graphql'],
       resolvers: { Upload: GraphQLUpload },
+      context: ({ req }: any) => ({ req }),
       debug: true,
       playground: true,
     }),
