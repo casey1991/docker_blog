@@ -24,6 +24,9 @@ export class CatService {
   async deleteMany(conditions: {}) {
     return await this.catModel.deleteMany(conditions);
   }
+  async findOne(conditions: {}): Promise<Cat> {
+    return this.catModel.findOne(conditions);
+  }
   async findAll(): Promise<Cat[]> {
     return await this.catModel.find().exec();
   }

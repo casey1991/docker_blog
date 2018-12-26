@@ -9,7 +9,7 @@ export class CatResolver {
   constructor(private readonly catService: CatService) {}
   @Query()
   async cat(@Args('id') id: string) {
-    // return await this.catsService.findAll;
+    return await this.catService.findOne({ _id: id });
   }
   @Query('cats')
   async cats() {

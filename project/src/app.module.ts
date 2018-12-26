@@ -3,11 +3,16 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { GraphQLUpload } from 'graphql-upload';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { CatModule } from '../Cat/cat.module';
-import { RedisModule } from '../Redis/redis.module';
-import { FileModule } from '../File/file.module';
+// modules
+import { AuthModule } from './Modules/Auth/auth.module';
+import { UserModule } from './Modules/User/user.module';
+import { CatModule } from './Modules/Cat/cat.module';
+import { RedisModule } from './Modules/Redis/redis.module';
+import { FileModule } from './Modules/File/file.module';
 @Module({
   imports: [
+    AuthModule,
+    UserModule,
     CatModule,
     RedisModule,
     FileModule,

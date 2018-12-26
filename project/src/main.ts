@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import * as Cors from 'cors';
 import { Transport } from '@nestjs/microservices';
-import { AppModule } from './Modules/App/app.module';
+import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.connectMicroservice({
