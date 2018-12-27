@@ -1,4 +1,8 @@
 # ../User/user.graphql
+type Auth {
+  accessToken: String
+}
 type Mutation {
-  signIn(email: String!, password: String!): User
+  createToken(email: String!, password: String!): Auth
+  signUp(email: String!, password: String!): User
 }
