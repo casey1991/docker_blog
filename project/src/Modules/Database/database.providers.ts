@@ -1,17 +1,18 @@
 import * as mongoose from 'mongoose';
-
+import { ConfigService } from '../Config/config.service';
 export const databaseProviders = [
   {
     provide: 'DbConnectionToken',
-    useFactory: async (): Promise<typeof mongoose> =>
+    useFactory: async (config: ConfigService): Promise<typeof mongoose> =>
       await mongoose.connect(
-        'mongodb://mongo',
+        config.get('DATABASE_URL'),
         {
-          user: 'root',
-          pass: 'password',
-          dbName: 'blog',
+          user: config.get('DATABASE_USER'),
+          pass: config.get('DATABASE_PASSWORD'),
+          dbName: config.get('DATABASE_NAME'),
           useNewUrlParser: true,
         },
       ),
+    inject: [ConfigService],
   },
 ];
