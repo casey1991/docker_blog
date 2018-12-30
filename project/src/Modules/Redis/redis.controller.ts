@@ -8,13 +8,18 @@ import {
 import { Observable } from 'rxjs';
 @Controller('redis')
 export class RedisController {
-  @Client({ transport: Transport.REDIS })
+  @Client({
+    transport: Transport.REDIS,
+    options: { url: 'redis://redis:6379' },
+  })
   client: ClientProxy;
 
   @Post()
   @HttpCode(200)
-  call(@Query('command') cmd, @Body() data: number[]): Observable<number> {
-    console.log(this.client);
+  call(
+    @Query('command') cmd,
+    @Body('data') data: number[],
+  ): Observable<number> {
     return this.client.send<number>({ cmd }, data);
   }
 
