@@ -6,18 +6,20 @@ import {
   UploadedFile,
   Inject,
 } from '@nestjs/common';
-
+import { MinioService } from './Minio/minio.service';
 @Controller('file')
 export class FileController {
-  constructor(@Inject('MinioToken') private readonly minioService: any) {}
+  constructor(private readonly minioService: MinioService) {}
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile() file) {
     const result = await this.minioService.putObject(
-      'images',
+      'office',
       file.originalname,
       file.buffer,
       file.size,
+      file.mimetype,
     );
+    return result;
   }
 }
