@@ -26,6 +26,17 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: password
     networks:
       - backend
+  mysql:
+    image: "mysql:8.0.13"
+    restart: always
+    ports:
+      - "4446:3306"
+    volumes:
+      - ./db/mysql/data/db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    networks:
+      - backend
   redis:
     image: "redis:5"
     restart: always
