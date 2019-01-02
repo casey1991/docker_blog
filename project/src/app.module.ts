@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 // modules
 import { AuthModule } from './Modules/Auth/auth.module';
 import { UserModule } from './Modules/User/user.module';
+import { OfficeDocumentModule } from './Modules/OfficeDocument/office-document.module';
 import { CatModule } from './Modules/Cat/cat.module';
 import { RedisModule } from './Modules/Redis/redis.module';
 import { FileModule } from './Modules/File/file.module';
@@ -13,6 +14,7 @@ import { FileModule } from './Modules/File/file.module';
   imports: [
     AuthModule,
     UserModule,
+    OfficeDocumentModule,
     CatModule,
     RedisModule,
     FileModule,
