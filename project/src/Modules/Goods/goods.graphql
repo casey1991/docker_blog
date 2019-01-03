@@ -1,0 +1,8 @@
+type Goods {
+  id: String!
+}
+
+type Query {
+  goods(id: String!): Goods
+  goodss: [Goods]
+}

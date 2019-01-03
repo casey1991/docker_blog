@@ -3,17 +3,17 @@ import { Resolver } from '@nestjs/graphql';
 import { Query, Mutation } from '@nestjs/graphql';
 import { Args } from '@nestjs/graphql';
 // services
-import { OfficeDocumentService } from './office-document.service';
-@Resolver('OfficeDocument')
-export class OfficeDocumentResolver {
-  constructor(private readonly officeDocumentService: OfficeDocumentService) {}
-  @Query('officeDocument')
-  async cat(@Args('id') id: string) {
-    return await this.officeDocumentService.findOne({ _id: id });
+import { GoodsService } from './goods.service';
+@Resolver('goods')
+export class GoodsResolver {
+  constructor(private readonly goodsService: GoodsService) {}
+  @Query()
+  async goods(@Args('id') id: string) {
+    return await this.goodsService.findOne({ _id: id });
   }
-  @Query('officeDocuments')
-  async cats() {
-    return await this.officeDocumentService.findAll();
+  @Query('goodss')
+  async goodss() {
+    return await this.goodsService.findAll();
   }
   // @Mutation('createDocument')
   // async createCat(@Args() cat) {

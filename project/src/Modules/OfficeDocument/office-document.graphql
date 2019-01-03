@@ -1,8 +1,0 @@
-type OfficeDocument {
-  id: String!
-}
-
-type Query {
-  officeDocument(id: String!): OfficeDocument
-  officeDocuments: [OfficeDocument]
-}
