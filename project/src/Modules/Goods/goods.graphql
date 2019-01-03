@@ -1,8 +1,15 @@
 type Goods {
   id: String!
+  name: String!
+  price: Int
+  amount: Int
 }
 
 type Query {
   goods(id: String!): Goods
   goodss: [Goods]
+}
+
+type Mutation {
+  createGoods(name: String!, price: Int, amount: Int): Goods
 }

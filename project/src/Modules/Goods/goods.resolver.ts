@@ -15,17 +15,8 @@ export class GoodsResolver {
   async goodss() {
     return await this.goodsService.findAll();
   }
-  // @Mutation('createDocument')
-  // async createCat(@Args() cat) {
-  //   return await this.officeDocumentService.create({ ...cat });
-  // }
-  // @Mutation('updateDocument')
-  // async updateCat(@Args() cat) {
-  //   const { id, ...rest } = cat;
-  //   return await this.officeDocumentService.update({ _id: id }, rest);
-  // }
-  // @Mutation('deleteDocument')
-  // async deleteCat(@Args('id') id) {
-  //   return await this.officeDocumentService.delete({ _id: id });
-  // }
+  @Mutation('createGoods')
+  async createGoods(@Args() goods) {
+    return await this.goodsService.create({ ...goods });
+  }
 }
