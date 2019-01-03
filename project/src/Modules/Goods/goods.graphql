@@ -13,3 +13,8 @@ type Query {
 type Mutation {
   createGoods(name: String!, price: Int, amount: Int): Goods
 }
+
+type Subscription {
+  goodsCreated: Goods
+  goodsUpdated: Goods
+}
