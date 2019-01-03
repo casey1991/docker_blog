@@ -21,19 +21,19 @@ export class GoodsResolver {
   @Mutation('createGoods')
   async createGoods(@Args() goods) {
     const result = await this.goodsService.create({ ...goods });
-    pubSub.publish('goodsCreated', result);
+    pubSub.publish('goodsCreated', { goodsCreated: result });
     return result;
   }
   @Subscription('goodsCreated')
-  async goodsCreated() {
+  goodsCreated() {
     return {
       subscribe: () => pubSub.asyncIterator('goodsCreated'),
     };
   }
   @Subscription('goodsUpdated')
-  async goodsUpdated() {
+  goodsUpdated() {
     return {
-      subscribe: () => pubSub.asyncIterator('goodsUpdated'),
+      subscribe: () => pubSub.asyncIterator('goodsCreated'),
     };
   }
 }
