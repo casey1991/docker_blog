@@ -1,9 +1,11 @@
+# ../User/user.graphql
 type Cat {
   id: String!
   name: String!
   description: String
   age: Int
   breed: String
+  owner: User
 }
 
 type Query {
