@@ -1,8 +1,10 @@
+# ../User/user.graphql
 type Goods {
   id: String!
   name: String!
   price: Int
   amount: Int
+  owner: User!
 }
 
 type Query {

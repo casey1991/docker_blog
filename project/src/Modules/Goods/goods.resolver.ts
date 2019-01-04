@@ -1,16 +1,25 @@
-import { Resolver } from '@nestjs/graphql';
+import { Resolver, ResolveProperty } from '@nestjs/graphql';
+import { UseGuards } from '@nestjs/common';
 // graplql actions
 import { Query, Mutation, Subscription } from '@nestjs/graphql';
-import { Args } from '@nestjs/graphql';
+import { Args, Parent } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
 // services
 import { GoodsService } from './goods.service';
+// guards
+import { GqlAuthGuard } from '../Auth/graphql-auth.guard';
+// decorators
+import { User } from '../Auth/graphql-user-context.decorator';
+import { UserService } from '../User/user.service';
 
 const pubSub = new PubSub();
-@Resolver('goods')
+@Resolver('Goods')
 export class GoodsResolver {
-  constructor(private readonly goodsService: GoodsService) {}
-  @Query()
+  constructor(
+    private readonly goodsService: GoodsService,
+    private readonly userService: UserService,
+  ) {}
+  @Query('goods')
   async goods(@Args('id') id: string) {
     return await this.goodsService.findOne({ _id: id });
   }
@@ -18,11 +27,19 @@ export class GoodsResolver {
   async goodss() {
     return await this.goodsService.findAll();
   }
+  @UseGuards(GqlAuthGuard)
   @Mutation('createGoods')
-  async createGoods(@Args() goods) {
-    const result = await this.goodsService.create({ ...goods });
+  async createGoods(@Args() goods, @User() user) {
+    const result = await this.goodsService.create({
+      ...goods,
+      owner: user._id,
+    });
     pubSub.publish('goodsCreated', { goodsCreated: result });
     return result;
+  }
+  @ResolveProperty('owner')
+  async owner(@Parent() goods) {
+    return this.userService.findOne({ _id: goods.owner });
   }
   @Subscription('goodsCreated')
   goodsCreated() {

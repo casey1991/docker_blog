@@ -6,4 +6,5 @@ export const GoodsSchema = new mongoose.Schema({
   amount: { type: SchemaTypes.Number, required: true },
   createdAt: { type: SchemaTypes.Date, default: Date.now },
   updatedAt: { type: SchemaTypes.Date, default: Date.now },
+  owner: { type: SchemaTypes.ObjectId, required: true },
 });
