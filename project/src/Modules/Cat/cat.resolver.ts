@@ -1,17 +1,21 @@
 import { UseGuards } from '@nestjs/common';
-import { Resolver } from '@nestjs/graphql';
+import { Resolver, ResolveProperty, Parent } from '@nestjs/graphql';
 // graplql actions
 import { Query, Mutation } from '@nestjs/graphql';
 import { Args } from '@nestjs/graphql';
 // services
 import { CatService } from './cat.service';
+import { UserService } from '../User/user.service';
 // guards
 import { GqlAuthGuard } from '../Auth/graphql-auth.guard';
 // decorators
 import { User } from '../Auth/graphql-user-context.decorator';
 @Resolver('Cat')
 export class CatResolver {
-  constructor(private readonly catService: CatService) {}
+  constructor(
+    private readonly catService: CatService,
+    private readonly userService: UserService,
+  ) {}
   @Query()
   async cat(@Args('id') id: string) {
     return await this.catService.findOne({ _id: id });
@@ -19,6 +23,10 @@ export class CatResolver {
   @Query('cats')
   async cats() {
     return await this.catService.findAll();
+  }
+  @ResolveProperty('owner')
+  async owner(@Parent() cat) {
+    return await this.userService.findOne({ _id: cat.owner });
   }
   @UseGuards(GqlAuthGuard)
   @Mutation('createCat')
