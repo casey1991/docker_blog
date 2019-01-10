@@ -10,6 +10,8 @@ import { GoodsModule } from './Modules/Goods/goods.module';
 import { CatModule } from './Modules/Cat/cat.module';
 import { RedisModule } from './Modules/Redis/redis.module';
 import { FileModule } from './Modules/File/file.module';
+// scalars
+import { EmailAddress as Email } from './Common/Scalars';
 @Module({
   imports: [
     AuthModule,
@@ -20,7 +22,7 @@ import { FileModule } from './Modules/File/file.module';
     FileModule,
     GraphQLModule.forRoot({
       typePaths: ['./**/*.graphql'],
-      resolvers: { Upload: GraphQLUpload },
+      resolvers: { Upload: GraphQLUpload, Email },
       installSubscriptionHandlers: true,
       context: ({ req }: any) => ({ req }),
       debug: true,

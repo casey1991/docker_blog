@@ -1,6 +1,7 @@
+scalar Email
 type User {
   id: String!
-  email: String!
+  email: Email!
 }
 
 type Query {
