@@ -1,0 +1,21 @@
+# ../User/user.graphql
+scalar Date
+type Note {
+  id: String!
+  title: String!
+  content: String
+  owner: User
+  createdAt: Date
+  updatedAt: Date
+}
+
+type Query {
+  note(id: String!): Note
+  notes: [Note]
+}
+
+type Mutation {
+  createNote(title: String!): Note
+  updateNote(id: String!): Note
+  deleteNote(id: String!): Note
+}
