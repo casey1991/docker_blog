@@ -4,7 +4,7 @@ import { ConfigService } from '../Config/config.service';
 import * as Bull from 'bull';
 
 @Injectable()
-export class QueueService {
+export class PremiumQueueService {
   private readonly queues: Array<object> = [];
   constructor(private readonly configService: ConfigService) {}
   async createQueue(name: string): Promise<any> {
@@ -15,6 +15,7 @@ export class QueueService {
         host: this.configService.get('REDIS_HOST'),
       },
     });
+    console.log(this.queues);
     this.queues.push(bull);
     return bull;
   }
@@ -22,13 +23,10 @@ export class QueueService {
     const queue = find(this.queues, queue => {
       return queue.name === key;
     });
-    return assign({}, { ...queue });
+    return queue;
   }
   async findAll() {
-    const results = map(this.queues, queue => {
-      return assign({}, { ...queue });
-    });
-    return results;
+    return this.queues;
   }
   async addJob(
     queueName: string,

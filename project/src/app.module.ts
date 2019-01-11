@@ -9,7 +9,7 @@ import { UserModule } from './Modules/User/user.module';
 import { GoodsModule } from './Modules/Goods/goods.module';
 import { CatModule } from './Modules/Cat/cat.module';
 import { RedisModule } from './Modules/Redis/redis.module';
-import { QueueModule } from './Modules/Queue/queue.module';
+import { PremiumQueueModule } from './Modules/PremiumQueue/premium-queue.module';
 import { FileModule } from './Modules/File/file.module';
 import { NoteModule } from './Modules/Note/note.module';
 // scalars
@@ -22,7 +22,7 @@ import { EmailAddress as Email, DateTime as Date } from './Common/Scalars';
     NoteModule,
     CatModule,
     RedisModule,
-    QueueModule,
+    PremiumQueueModule,
     FileModule,
     GraphQLModule.forRoot({
       typePaths: ['./**/*.graphql'],

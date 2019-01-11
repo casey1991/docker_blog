@@ -1,0 +1,12 @@
+type PremiumQueue {
+  name: String!
+}
+
+type Query {
+  premiumQueue(name: String!): PremiumQueue
+  premiumQueues: [PremiumQueue]
+}
+
+type Mutation {
+  createPremiumQueue(name: String!): PremiumQueue
+}
