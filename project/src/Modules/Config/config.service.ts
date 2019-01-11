@@ -41,7 +41,7 @@ export class ConfigService {
     }
     return validateEnvConfig;
   }
-  get(key: string): string {
+  get(key: string): any {
     return this.envConfig[key];
   }
 }

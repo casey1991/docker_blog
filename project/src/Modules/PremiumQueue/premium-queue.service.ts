@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { find, map, assign } from 'lodash';
 import { ConfigService } from '../Config/config.service';
-import * as Bull from 'bull';
+import { default as Bull } from 'bull';
 
 @Injectable()
 export class PremiumQueueService {
