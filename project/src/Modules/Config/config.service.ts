@@ -28,6 +28,9 @@ export class ConfigService {
       MINIO_USE_SSL: Joi.bool().default(false),
       MINIO_ACCESS_KEY: Joi.string().default('access_key'),
       MINIO_SECRET_KEY: Joi.string().default('secret_key'),
+      // redis
+      REDIS_HOST: Joi.string().default('localhost'),
+      REDIS_PORT: Joi.number().default(6379),
     });
     const { error, value: validateEnvConfig } = Joi.validate(
       envConfig,
