@@ -8,6 +8,7 @@ export class PremiumQueueService {
   private readonly queues: Array<object> = [];
   constructor(private readonly configService: ConfigService) {}
   async createQueue(name: string): Promise<any> {
+    if (await this.findOne(name)) return await this.findOne(name);
     // now just create redis queue
     const bull = new Bull(name, {
       redis: {
@@ -15,7 +16,6 @@ export class PremiumQueueService {
         host: this.configService.get('REDIS_HOST'),
       },
     });
-    console.log(this.queues);
     this.queues.push(bull);
     return bull;
   }
@@ -36,7 +36,7 @@ export class PremiumQueueService {
   ): Promise<any> {
     let bull = await this.findOne(queueName);
     if (!bull) {
-      bull = this.createQueue(queueName);
+      bull = await this.createQueue(queueName);
     }
     return bull.add(name, data, opts);
   }
