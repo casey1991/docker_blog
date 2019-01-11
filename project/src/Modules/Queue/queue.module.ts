@@ -1,15 +1,18 @@
 import { Module } from '@nestjs/common';
 
-import { QueueService } from './queue.service';
-import { queueProviders } from './queue.providers';
+// modules
 import { RedisModule } from '../Redis/redis.module';
-import { UserModule } from '../User/user.module';
-import { QueueController } from './queue.controller';
+import { ConfigModule } from '../Config/config.module';
+// services
+import { QueueService } from './queue.service';
+// providers
+import { queueProviders } from './queue.providers';
+
+import { QueueResolver } from './queue.resolver';
 
 @Module({
-  imports: [RedisModule, UserModule],
-  controllers: [QueueController],
-  providers: [QueueService, ...queueProviders],
+  imports: [ConfigModule, RedisModule],
+  providers: [QueueService, ...queueProviders, QueueResolver],
   exports: [QueueService],
 })
 export class QueueModule {}
