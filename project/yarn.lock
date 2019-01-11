@@ -205,6 +205,13 @@
   dependencies:
     "@types/node" "*"
 
+"@types/bull@^3.5.1":
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/@types/bull/-/bull-3.5.1.tgz#a24b1379c99d9a764a4c7bf80129cd68c8c57db6"
+  integrity sha512-47StsapBCRl0VumgAnN90MD9nivNs9IqCtHFtvHB+Kk/4qvt9KrcCITZH4YEwRZG5m5UUGS0VNrH+taEPu0yEw==
+  dependencies:
+    "@types/ioredis" "*"
+
 "@types/connect@*":
   version "3.4.32"
   resolved "https://registry.yarnpkg.com/@types/connect/-/connect-3.4.32.tgz#aa0e9616b9435ccad02bc52b5b454ffc2c70ba28"
@@ -246,6 +253,13 @@
     "@types/body-parser" "*"
     "@types/express-serve-static-core" "*"
     "@types/serve-static" "*"
+
+"@types/ioredis@*":
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/@types/ioredis/-/ioredis-4.0.4.tgz#c0a809064c05e4c2663803128d46042e73c92558"
+  integrity sha512-QdJTMFrmKkphjoGIxItTMhP++8/6INLbgSIxB8kd9N+3OuiuiaZ2knt+OR4gFQrloac/ctwaQA1PCzISmD9afQ==
+  dependencies:
+    "@types/node" "*"
 
 "@types/jest@^23.3.1":
   version "23.3.10"
