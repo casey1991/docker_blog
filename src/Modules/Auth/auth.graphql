@@ -1,10 +1,11 @@
 # ../User/user.graphql
+scalar Email
 type Auth {
   accessToken: String
 }
 type Mutation {
-  createToken(email: String!, password: String!): Auth
-  createCaptcha(email: String!): Boolean
-  modifyCaptchaStatus(email: String!, captcha: String!): Boolean
-  signUp(email: String!, password: String!): User
+  createToken(email: Email!, password: String!): Auth
+  createCaptcha(email: Email!): Boolean
+  modifyCaptchaStatus(email: Email!, captcha: String!): Boolean
+  signUp(email: Email!, password: String!): User
 }
