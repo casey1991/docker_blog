@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Param, Body, Query } from '@nestjs/common';
+import { Controller, Post, Get, Body, Query, Put } from '@nestjs/common';
 import { RedisService } from './redis.service';
 
 @Controller('redis')
@@ -11,6 +11,11 @@ export class RedisController {
     @Body('expire') expire: number,
   ) {
     const result = this.redisService.set(key, value, 'EX', expire);
+    return result;
+  }
+  @Put('del')
+  async del(@Body('key') key: string) {
+    const result = this.redisService.del(key);
     return result;
   }
   @Get()

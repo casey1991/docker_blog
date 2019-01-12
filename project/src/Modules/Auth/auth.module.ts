@@ -7,11 +7,13 @@ import { DatabaseModule } from '../Database/database.module';
 import { UserModule } from '../User/user.module';
 import { JwtStrategy } from './jwt.strategy';
 import { AuthResolver } from './auth.resolver';
+import { RedisModule } from '../Redis/redis.module';
 
 @Module({
   imports: [
     DatabaseModule,
     UserModule,
+    RedisModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
       secretOrPrivateKey: 'secretKey',
