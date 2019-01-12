@@ -4,5 +4,6 @@ type Auth {
 }
 type Mutation {
   createToken(email: String!, password: String!): Auth
+  createCaptcha(email: String!): Boolean
   signUp(email: String!, password: String!): User
 }

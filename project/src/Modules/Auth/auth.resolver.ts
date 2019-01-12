@@ -15,4 +15,8 @@ export class AuthResolver {
   async createToken(@Args('email') email, @Args('password') password) {
     return await this.authService.createToken(email, password);
   }
+  @Mutation('createCaptcha')
+  async createCaptcha() {
+    return true;
+  }
 }
