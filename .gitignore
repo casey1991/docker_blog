@@ -1,5 +1,4 @@
-# ignore vscode config
-.vscode/
+# https://git-scm.com/docs/gitignore see more rules
 # ignore db folder
 db/
 # ignore project node_modules
