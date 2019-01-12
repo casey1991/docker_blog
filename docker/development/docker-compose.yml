@@ -1,0 +1,52 @@
+version: "3.5"
+services:
+  mongo:
+    image: "mongo:4.0.4"
+    restart: always
+    volumes:
+      - ./db/mongo/data/db:/data/db
+    ports:
+      - "4445:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    networks:
+      - backend
+  mysql:
+    image: "mysql:8.0.13"
+    restart: always
+    ports:
+      - "4446:3306"
+    volumes:
+      - ./db/mysql/data/db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    networks:
+      - backend
+  redis:
+    image: "redis:5"
+    restart: always
+    volumes:
+      - ./db/redis:/data
+    networks:
+      - backend
+  minio:
+    image: "minio/minio"
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./db/minio:/data
+    environment:
+      MINIO_ACCESS_KEY: caseywang
+      MINIO_SECRET_KEY: wangyang_1991
+    command: "server /data"
+    networks:
+      - frontend
+      - backend
+networks:
+  frontend:
+    name: blog_frontend
+    driver: bridge
+  backend:
+    name: blog_backend
+    driver: bridge
