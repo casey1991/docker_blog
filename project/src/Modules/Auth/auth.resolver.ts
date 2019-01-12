@@ -1,11 +1,11 @@
 import { Resolver } from '@nestjs/graphql';
+import { ValidationError } from 'apollo-server-express';
 // graplql actions
 import { Query, Mutation } from '@nestjs/graphql';
 import { Args } from '@nestjs/graphql';
 // services
 import { AuthService } from './auth.service';
 import { RedisService } from '../Redis/redis.service';
-import { UnauthorizedException } from '@nestjs/common';
 @Resolver('Auth')
 export class AuthResolver {
   constructor(
@@ -20,10 +20,10 @@ export class AuthResolver {
   async createToken(@Args('email') email, @Args('password') password) {
     // CAPTCHA
     // 3. get captcha status from redis, if vertified is true, pass
-    const captcha = JSON.parse(await this.redisService.get(`CAPTCHA_${email}`));
-    console.log(captcha);
+    const captcha =
+      JSON.parse(await this.redisService.get(`CAPTCHA_${email}`)) || {};
     if (!captcha.verified) {
-      throw UnauthorizedException;
+      throw ValidationError;
     }
     return await this.authService.createToken(email, password);
   }
@@ -49,10 +49,8 @@ export class AuthResolver {
     // CAPTCHA
     // 2. modify captcha when code is equal
     const captcha = JSON.parse(await this.redisService.get(`CAPTCHA_${email}`));
-    console.log(captcha);
     if (captcha.code === code) {
       const captcha = JSON.stringify({ code: 'abc123', verified: true });
-      console.log(email, captcha);
       await this.redisService.set(`CAPTCHA_${email}`, captcha, 'EX', 5);
     }
     return true; // always return true until something wrong(eg:key not exit)
