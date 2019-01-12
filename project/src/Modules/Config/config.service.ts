@@ -17,6 +17,7 @@ export class ConfigService {
         .valid(['development', 'production', 'test'])
         .default('development'),
       PORT: Joi.number().default(3000),
+      CAPTCHA_ENABLE: Joi.boolean().default(false),
       // db
       DATABASE_URL: Joi.string().default('mongod://localhost:27107'),
       DATABASE_USER: Joi.string().default('root'),

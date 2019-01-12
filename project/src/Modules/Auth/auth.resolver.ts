@@ -6,9 +6,11 @@ import { Args } from '@nestjs/graphql';
 // services
 import { AuthService } from './auth.service';
 import { RedisService } from '../Redis/redis.service';
+import { ConfigService } from '../Config/config.service';
 @Resolver('Auth')
 export class AuthResolver {
   constructor(
+    private readonly config: ConfigService,
     private readonly authService: AuthService,
     private readonly redisService: RedisService,
   ) {}
@@ -20,10 +22,12 @@ export class AuthResolver {
   async createToken(@Args('email') email, @Args('password') password) {
     // CAPTCHA
     // 3. get captcha status from redis, if vertified is true, pass
-    const captcha =
-      JSON.parse(await this.redisService.get(`CAPTCHA_${email}`)) || {};
-    if (!captcha.verified) {
-      throw ValidationError;
+    if (this.config.get('CAPTCHA_ENABLE')) {
+      const captcha =
+        JSON.parse(await this.redisService.get(`CAPTCHA_${email}`)) || {};
+      if (!captcha.verified) {
+        throw ValidationError;
+      }
     }
     return await this.authService.createToken(email, password);
   }
