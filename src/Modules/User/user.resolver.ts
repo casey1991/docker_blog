@@ -15,7 +15,7 @@ export class UserResolver {
     return await this.userService.findOne({ _id: id });
   }
   @Query('users')
-  async users() {
+  async users(@Args('where') where) {
     return await this.userService.findAll();
   }
   @UseGuards(GqlAuthGuard)
