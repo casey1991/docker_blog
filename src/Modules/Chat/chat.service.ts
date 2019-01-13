@@ -41,13 +41,13 @@ export class ChatService {
   async deleteMessage(): Promise<Message> {
     return null;
   }
-  async deleteMessages(): Promise<Message[]> {
+  async deleteMessages(conditions: {}): Promise<Message[]> {
     return null;
   }
-  async findMessage(): Promise<Message> {
+  async findMessage(conditions: {}): Promise<Message> {
     return null;
   }
-  async findMessages(): Promise<Message[]> {
+  async findMessages(roomId: string, conditions: {}): Promise<Message[]> {
     return null;
   }
 }

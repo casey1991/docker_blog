@@ -29,6 +29,12 @@ export class RoomResolver {
     const users = parent.users || [];
     return await this.userService.findAll({ _id: { $in: users } });
   }
+  @ResolveProperty('messages')
+  async messages(@Parent() parent) {
+    const roomId = parent._id;
+    const roomMessages = parent.messages;
+    return await this.chatService.findMessages(roomId, {});
+  }
   @UseGuards(GqlAuthGuard)
   @Mutation('createRoom')
   async createRoom(@Args() room, @User() user) {
