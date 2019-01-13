@@ -1,0 +1,21 @@
+# ../User/user.graphql
+# ./message.graphql
+type Room {
+  id: ID!
+  name: String!
+  messages: [Message]
+  users: [User]
+}
+type Query {
+  room(id: ID!): Room!
+  rooms: [Room]!
+}
+
+type Mutation {
+  createRoom(name: String!): Room!
+}
+
+type Subscription {
+  roomCreated: Room!
+  roomUpdated: Room!
+}

@@ -26,7 +26,7 @@ export class UserService {
   async deleteMany(conditions: {}) {
     return await this.usertModel.deleteMany(conditions);
   }
-  async findAll(): Promise<User[]> {
-    return await this.usertModel.find().exec();
+  async findAll(conditions: {}): Promise<User[]> {
+    return await this.usertModel.find(conditions).exec();
   }
 }

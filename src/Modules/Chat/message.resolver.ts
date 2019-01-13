@@ -10,29 +10,26 @@ import { UserService } from '../User/user.service';
 import { GqlAuthGuard } from '../Auth/graphql-auth.guard';
 // decorators
 import { User } from '../Auth/graphql-user-context.decorator';
-@Resolver('Chat')
-export class ChatResolver {
+@Resolver('Message')
+export class MessageResolver {
   constructor(
     private readonly chatService: ChatService,
     private readonly userService: UserService,
   ) {}
   @Query()
-  async cat(@Args('id') id: string) {
-    return await this.chatService.findRoom({ _id: id });
+  async message(
+    @Args('roomId') roomId: string,
+    @Args('messageId') messageId: string,
+  ) {
+    // return await this.chatService.findRoom({ _id: id });
   }
-  @Query('rooms')
-  async cats() {
-    return await this.chatService.findRooms();
-  }
-  @UseGuards(GqlAuthGuard)
-  @Mutation('createRoom')
-  async createRoom(@Args() cat, @User() user) {
-    return await this.chatService.createRoom({ ...cat, owner: user._id });
+  @Query('messages')
+  async messages(@Args('roomId') roomId: string) {
+    // return await this.chatService.findRooms();
   }
   @UseGuards(GqlAuthGuard)
   @Mutation('createMessage')
-  async createMessage(@Args() cat) {
-    const { id, ...rest } = cat;
-    return await this.chatService.updateRoom({ _id: id }, rest);
+  async createMessage(@Args('roomId') roomId, @User() user) {
+    const currentUser = user._id;
   }
 }
