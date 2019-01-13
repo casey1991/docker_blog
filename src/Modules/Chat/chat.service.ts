@@ -48,6 +48,8 @@ export class ChatService {
     return null;
   }
   async findMessages(roomId: string, conditions: {}): Promise<Message[]> {
-    return null;
+    const parent = await this.findRoom({ _id: roomId });
+    const messages = parent.messages;
+    return messages;
   }
 }

@@ -1,7 +1,7 @@
 import { Document } from 'mongoose';
-
+import { Message } from './message.interface';
 export interface Room extends Document {
   readonly name: string;
-  readonly age: number;
-  readonly breed: string;
+  readonly users: [any];
+  readonly messages: [Message];
 }
