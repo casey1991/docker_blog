@@ -12,12 +12,15 @@ import { RedisModule } from './Modules/Redis/redis.module';
 import { PremiumQueueModule } from './Modules/PremiumQueue/premium-queue.module';
 import { FileModule } from './Modules/File/file.module';
 import { NoteModule } from './Modules/Note/note.module';
+import { ChatModule } from './Modules/Chat/chat.module';
+
 // scalars
 import { EmailAddress as Email, DateTime as Date } from './Common/Scalars';
 @Module({
   imports: [
     AuthModule,
     UserModule,
+    ChatModule,
     GoodsModule,
     NoteModule,
     CatModule,
