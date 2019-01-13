@@ -32,8 +32,12 @@ export class ChatService {
     return await this.roomModel.find().exec();
   }
   // message operations
-  async createMessage(): Promise<Message> {
-    return null;
+  async createMessage(roomId: string, message: Message): Promise<Message> {
+    const parent = await this.findRoom({ _id: roomId });
+    parent.messages.push(message);
+    const subdoc = parent.messages[0];
+    await parent.save();
+    return subdoc;
   }
   async updateMessage(): Promise<Message> {
     return null;
@@ -44,7 +48,9 @@ export class ChatService {
   async deleteMessages(conditions: {}): Promise<Message[]> {
     return null;
   }
-  async findMessage(conditions: {}): Promise<Message> {
+  async findMessage(roomId: string, conditions: {}): Promise<Message> {
+    const parent = await this.findRoom({ _id: roomId });
+    // parent.messages.find()
     return null;
   }
   async findMessages(roomId: string, conditions: {}): Promise<Message[]> {
