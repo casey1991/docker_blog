@@ -16,7 +16,7 @@ export class UserResolver {
   }
   @Query('users')
   async users(@Args('where') where) {
-    return await this.userService.findAll();
+    return await this.userService.findAll({});
   }
   @UseGuards(GqlAuthGuard)
   @Mutation('createUser')
