@@ -5,10 +5,11 @@ import {
   Parent,
   Subscription,
 } from '@nestjs/graphql';
+import { hasIn } from 'lodash';
 // graplql actions
 import { Query, Mutation } from '@nestjs/graphql';
 import { Args } from '@nestjs/graphql';
-import { PubSub } from 'graphql-subscriptions';
+import { PubSub, withFilter } from 'graphql-subscriptions';
 // services
 import { ChatService } from './chat.service';
 import { UserService } from '../User/user.service';
@@ -63,7 +64,21 @@ export class MessageResolver {
   // subscriptions
   @Subscription('messageCreated')
   messageCreated() {
-    return { subscribe: () => pubSub.asyncIterator('messageCreated') };
+    return {
+      subscribe: withFilter(
+        () => pubSub.asyncIterator('messageCreated'),
+        (rootValue?: any, args?: any) => {
+          const { roomId } = args;
+          const messageRoom = hasIn(rootValue, 'messageCreated.room')
+            ? rootValue.messageCreated.room
+            : null;
+          if (messageRoom.equals(roomId)) {
+            return true;
+          }
+          return false;
+        },
+      ),
+    };
   }
   @Subscription('messageUpdated')
   messageUpdated() {

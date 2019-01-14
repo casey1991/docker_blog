@@ -16,6 +16,6 @@ type Mutation {
 }
 
 type Subscription {
-  messageCreated: Message!
-  messageUpdated: Message!
+  messageCreated(roomId: ID!): Message!
+  messageUpdated(roomId: ID!): Message!
 }
