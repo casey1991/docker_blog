@@ -1,8 +1,14 @@
 import { UseGuards } from '@nestjs/common';
-import { Resolver, ResolveProperty, Parent } from '@nestjs/graphql';
+import {
+  Resolver,
+  ResolveProperty,
+  Parent,
+  Subscription,
+} from '@nestjs/graphql';
 // graplql actions
 import { Query, Mutation } from '@nestjs/graphql';
 import { Args } from '@nestjs/graphql';
+import { PubSub } from 'graphql-subscriptions';
 // services
 import { ChatService } from './chat.service';
 import { UserService } from '../User/user.service';
@@ -11,6 +17,8 @@ import { GqlAuthGuard } from '../Auth/graphql-auth.guard';
 // decorators
 import { User } from '../Auth/graphql-user-context.decorator';
 import { Message } from './Interfaces/message.interface';
+
+const pubSub = new PubSub();
 @Resolver('Message')
 export class MessageResolver {
   constructor(
@@ -18,6 +26,7 @@ export class MessageResolver {
     private readonly userService: UserService,
   ) {}
   @Query()
+  // queries
   async message(
     @Args('roomId') roomId: string,
     @Args('messageId') messageId: string,
@@ -39,6 +48,7 @@ export class MessageResolver {
     const userId = parent.owner;
     return await this.userService.findOne({ _id: userId });
   }
+  // mutations
   @UseGuards(GqlAuthGuard)
   @Mutation('createMessage')
   async createMessage(@Args('roomId') roomId, @Args() message, @User() user) {
@@ -46,6 +56,17 @@ export class MessageResolver {
     Reflect.deleteProperty(message, 'roomId');
     Reflect.set(message, 'owner', currentUser);
     Reflect.set(message, 'room', roomId);
-    return await this.chatService.createMessage(message);
+    const createdMessage = await this.chatService.createMessage(message);
+    pubSub.publish('messageCreated', { messageCreated: createdMessage });
+    return createdMessage;
+  }
+  // subscriptions
+  @Subscription('messageCreated')
+  messageCreated() {
+    return { subscribe: () => pubSub.asyncIterator('messageCreated') };
+  }
+  @Subscription('messageUpdated')
+  messageUpdated() {
+    return { subscribe: () => pubSub.asyncIterator('messageUpdated') };
   }
 }
