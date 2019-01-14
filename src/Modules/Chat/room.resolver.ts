@@ -32,7 +32,6 @@ export class RoomResolver {
   @ResolveProperty('messages')
   async messages(@Parent() parent) {
     const roomId = parent._id;
-    const roomMessages = parent.messages;
     return await this.chatService.findMessages(roomId, {});
   }
   @UseGuards(GqlAuthGuard)

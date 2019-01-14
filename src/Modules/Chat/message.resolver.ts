@@ -10,7 +10,6 @@ import { UserService } from '../User/user.service';
 import { GqlAuthGuard } from '../Auth/graphql-auth.guard';
 // decorators
 import { User } from '../Auth/graphql-user-context.decorator';
-import { Message } from 'protobufjs';
 @Resolver('Message')
 export class MessageResolver {
   constructor(
@@ -22,11 +21,12 @@ export class MessageResolver {
     @Args('roomId') roomId: string,
     @Args('messageId') messageId: string,
   ) {
-    // return await this.chatService.findRoom({ _id: id });
+    const query = { _id: messageId };
+    return await this.chatService.findMessage(roomId, query);
   }
   @Query('messages')
   async messages(@Args('roomId') roomId: string) {
-    // return await this.chatService.findRooms();
+    return await this.chatService.findMessages(roomId, {});
   }
   @UseGuards(GqlAuthGuard)
   @Mutation('createMessage')
@@ -34,6 +34,7 @@ export class MessageResolver {
     const currentUser = user._id;
     Reflect.deleteProperty(message, 'roomId');
     Reflect.set(message, 'owner', currentUser);
-    return await this.chatService.createMessage(roomId, message);
+    Reflect.set(message, 'room', roomId);
+    return await this.chatService.createMessage(message);
   }
 }

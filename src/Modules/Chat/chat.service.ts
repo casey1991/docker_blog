@@ -8,6 +8,8 @@ export class ChatService {
   constructor(
     @Inject('RoomModelToken')
     private readonly roomModel: Model<Room>,
+    @Inject('MessageModelToken')
+    private readonly messageModel: Model<Message>,
   ) {}
   // room operations
   async createRoom(room: {}): Promise<Room> {
@@ -31,31 +33,33 @@ export class ChatService {
   async findRooms(): Promise<Room[]> {
     return await this.roomModel.find().exec();
   }
+  // room atom operations
   // message operations
-  async createMessage(roomId: string, message: Message): Promise<Message> {
-    const parent = await this.findRoom({ _id: roomId });
-    parent.messages.push(message);
-    const subdoc = parent.messages[0];
-    await parent.save();
-    return subdoc;
+  async createMessage(message: Message): Promise<Message> {
+    const createdMessage = new this.messageModel(message);
+    return await createdMessage.save();
   }
-  async updateMessage(): Promise<Message> {
+  async updateMessage(
+    roomId: string,
+    conditions: {},
+    update: {},
+  ): Promise<Message> {
     return null;
   }
-  async deleteMessage(): Promise<Message> {
+  async deleteMessage(roomId: string, conditions: {}): Promise<Message> {
     return null;
   }
-  async deleteMessages(conditions: {}): Promise<Message[]> {
+  async deleteMessages(roomId: string, conditions: {}): Promise<Message[]> {
     return null;
   }
   async findMessage(roomId: string, conditions: {}): Promise<Message> {
-    const parent = await this.findRoom({ _id: roomId });
-    // parent.messages.find()
     return null;
   }
   async findMessages(roomId: string, conditions: {}): Promise<Message[]> {
-    const parent = await this.findRoom({ _id: roomId });
-    const messages = parent.messages;
-    return messages;
+    const query = {
+      room: { $in: [roomId] },
+      ...conditions,
+    };
+    return await this.messageModel.find(query);
   }
 }
