@@ -44,16 +44,20 @@ export class ChatService {
     conditions: {},
     update: {},
   ): Promise<Message> {
-    return null;
+    const query = { room: { $in: [roomId] }, ...conditions };
+    return this.messageModel.findOneAndUpdate(query, update, { new: true });
   }
   async deleteMessage(roomId: string, conditions: {}): Promise<Message> {
-    return null;
+    const query = { room: { $in: [roomId] }, ...conditions };
+    return this.messageModel.findOneAndRemove(query);
   }
   async deleteMessages(roomId: string, conditions: {}): Promise<Message[]> {
-    return null;
+    const query = { room: { $in: [roomId] }, ...conditions };
+    return this.messageModel.deleteMany(query);
   }
   async findMessage(roomId: string, conditions: {}): Promise<Message> {
-    return null;
+    const query = { room: { $in: [roomId] }, ...conditions };
+    return this.messageModel.findOne(query);
   }
   async findMessages(roomId: string, conditions: {}): Promise<Message[]> {
     const query = {
