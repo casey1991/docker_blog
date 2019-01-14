@@ -34,6 +34,11 @@ export class MessageResolver {
     const roomId = parent.room;
     return await this.chatService.findRoom({ _id: roomId });
   }
+  @ResolveProperty('owner')
+  async getOwner(@Parent() parent: Message) {
+    const userId = parent.owner;
+    return await this.userService.findOne({ _id: userId });
+  }
   @UseGuards(GqlAuthGuard)
   @Mutation('createMessage')
   async createMessage(@Args('roomId') roomId, @Args() message, @User() user) {
