@@ -1,7 +1,9 @@
+# ../File/file.graphql
 scalar Email
 type User {
   id: ID!
   email: Email!
+  avatars: [File]
 }
 input UserWhereInput {
   id: ID!
