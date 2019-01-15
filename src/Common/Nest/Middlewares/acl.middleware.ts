@@ -6,22 +6,20 @@ import {
   MiddlewareFunction,
   Inject,
 } from '@nestjs/common';
-
+import { Mongoose } from 'mongoose';
 @Injectable()
 export class ACLMiddleware implements NestMiddleware {
-  constructor() {}
+  constructor(
+    @Inject('DbConnectionToken') private readonly connection: Mongoose,
+  ) {}
   resolve(...args: any[]): MiddlewareFunction {
     //   init acl and put it in req
     return (req, res, next) => {
-      mongodb.connect(
-        'mongodb://127.0.0.1:27017/blog_acl',
-        function(error, db) {
-          var mongoBackend = new Acl.mongodbBackend(db);
-          const acl = new Acl(mongoBackend, '');
-          req.acl = acl;
-          next();
-        },
+      const acl = new Acl(
+        new Acl.mongodbBackend(this.connection.connection.db, 'acl_'),
       );
+      req.acl = acl;
+      next();
     };
   }
 }
