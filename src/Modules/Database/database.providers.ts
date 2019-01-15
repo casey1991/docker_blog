@@ -3,8 +3,8 @@ import { ConfigService } from '../Config/config.service';
 export const databaseProviders = [
   {
     provide: 'DbConnectionToken',
-    useFactory: async (config: ConfigService): Promise<typeof mongoose> =>
-      await mongoose.connect(
+    useFactory: async (config: ConfigService): Promise<typeof mongoose> => {
+      const connection = await mongoose.connect(
         config.get('DATABASE_URL'),
         {
           user: config.get('DATABASE_USER'),
@@ -12,7 +12,9 @@ export const databaseProviders = [
           dbName: config.get('DATABASE_NAME'),
           useNewUrlParser: true,
         },
-      ),
+      );
+      return connection;
+    },
     inject: [ConfigService],
   },
 ];

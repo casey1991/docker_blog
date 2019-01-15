@@ -16,10 +16,12 @@ import { ChatModule } from './Modules/Chat/chat.module';
 
 // scalars
 import { EmailAddress as Email, DateTime as Date } from './Common/Scalars';
+import { RoleModule } from './Modules/Role/role.module';
 @Module({
   imports: [
     AuthModule,
     UserModule,
+    RoleModule,
     ChatModule,
     GoodsModule,
     NoteModule,
