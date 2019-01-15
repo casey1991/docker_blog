@@ -1,4 +1,9 @@
-import { Module } from '@nestjs/common';
+import {
+  Module,
+  NestModule,
+  MiddlewareConsumer,
+  RequestMethod,
+} from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { GraphQLSchema } from 'graphql';
 import { GraphQLUpload } from 'graphql-upload';
@@ -14,7 +19,7 @@ import { PremiumQueueModule } from './Modules/PremiumQueue/premium-queue.module'
 import { FileModule } from './Modules/File/file.module';
 import { NoteModule } from './Modules/Note/note.module';
 import { ChatModule } from './Modules/Chat/chat.module';
-
+import { ACLMiddleware } from './Common/Middlewares/acl.middleware';
 // scalars
 import { EmailAddress as Email, DateTime as Date } from './Common/Scalars';
 import { RoleModule } from './Modules/Role/role.module';
@@ -45,4 +50,10 @@ import { RoleModule } from './Modules/Role/role.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(ACLMiddleware)
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
+  }
+}
