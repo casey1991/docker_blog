@@ -4,7 +4,7 @@ type Room {
   id: ID!
   name: String!
   messages: [Message]
-  users: [User]
+  users(where: UserWhereInput): [User]
 }
 type Query {
   room(id: ID!): Room!
