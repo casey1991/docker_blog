@@ -1,2 +1,2 @@
 export { Acl } from './acl';
-export { MemoryBacked } from './memory-backed';
+export { MemoryBackend } from './memory-backend';

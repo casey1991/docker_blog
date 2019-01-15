@@ -1,6 +1,6 @@
 import { union, forEach, difference } from 'lodash';
 import { Backend } from './backend.interface';
-export class MemoryBacked implements Backend {
+export class MemoryBackend implements Backend {
   private readonly _buckets = {};
   async begin(): Promise<any[]> {
     return [];
