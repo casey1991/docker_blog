@@ -1,5 +1,5 @@
 import * as mongodb from 'mongodb';
-import * as Acl from 'acl';
+import { Acl, MemoryBacked } from '../../../lib/Acl';
 import {
   Injectable,
   NestMiddleware,
@@ -15,10 +15,9 @@ export class ACLMiddleware implements NestMiddleware {
   resolve(...args: any[]): MiddlewareFunction {
     //   init acl and put it in req
     return (req, res, next) => {
-      const acl = new Acl(
-        new Acl.mongodbBackend(this.connection.connection.db, 'acl_'),
-      );
+      const acl = new Acl(new MemoryBacked());
       req.acl = acl;
+      acl.addUserRoles('casey', ['admin']);
       next();
     };
   }
