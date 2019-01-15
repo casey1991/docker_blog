@@ -1,9 +1,15 @@
 import * as mongodb from 'mongodb';
 import * as Acl from 'acl';
-import { Injectable, NestMiddleware, MiddlewareFunction } from '@nestjs/common';
+import {
+  Injectable,
+  NestMiddleware,
+  MiddlewareFunction,
+  Inject,
+} from '@nestjs/common';
 
 @Injectable()
 export class ACLMiddleware implements NestMiddleware {
+  constructor() {}
   resolve(...args: any[]): MiddlewareFunction {
     //   init acl and put it in req
     return (req, res, next) => {
