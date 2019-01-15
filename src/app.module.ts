@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
+import { GraphQLSchema } from 'graphql';
 import { GraphQLUpload } from 'graphql-upload';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -34,6 +35,9 @@ import { RoleModule } from './Modules/Role/role.module';
       resolvers: { Upload: GraphQLUpload, Email, Date },
       installSubscriptionHandlers: true,
       context: ({ req }: any) => ({ req }),
+      transformSchema: (schema: GraphQLSchema) => {
+        return schema;
+      },
       debug: true,
       playground: true,
     }),
