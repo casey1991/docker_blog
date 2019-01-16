@@ -25,7 +25,7 @@ export class Acl {
     );
   }
   async addUserRoles(userId: string, roles: Array<any>): Promise<any> {
-    var transaction = await this.backend.begin();
+    var transaction = this.backend.begin();
     await this.backend.add(transaction, this.options.buckets.meta, 'users', [
       userId,
     ]);
@@ -38,7 +38,7 @@ export class Acl {
     return this.backend.end(transaction);
   }
   async removeUserRoles(userId: string, roles: any[]) {
-    const transaction = await this.backend.begin();
+    const transaction = this.backend.begin();
     await this.backend.remove(
       transaction,
       this.options.buckets.users,
@@ -63,18 +63,18 @@ export class Acl {
     // TODO:
   }
   async removeRole(role: string) {
-    let transaction = await this.backend.begin();
+    let transaction = this.backend.begin();
     const resourcePromises = await this.backend.get(
       this.options.buckets.resources,
       role,
     );
     forEach(resourcePromises, resource => {
       var bucket = allowsBucket(resource);
-      this.backend.del(transaction, bucket, role);
+      this.backend.del(transaction, bucket, [role]);
     });
-    this.backend.del(transaction, this.options.buckets.resources, role);
-    this.backend.del(transaction, this.options.buckets.parents, role);
-    this.backend.del(transaction, this.options.roles, role);
+    this.backend.del(transaction, this.options.buckets.resources, [role]);
+    this.backend.del(transaction, this.options.buckets.parents, [role]);
+    this.backend.del(transaction, this.options.roles, [role]);
     this.backend.remove(transaction, this.options.buckets.meta, 'roles', [
       role,
     ]);
