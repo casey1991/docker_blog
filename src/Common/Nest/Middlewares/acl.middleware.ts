@@ -1,6 +1,6 @@
 import { Mongoose } from 'mongoose';
-// import * as Acl from 'acl';
-import { Acl, MemoryBackend } from '../../../../lib/Acl';
+import * as Acl from 'acl';
+// import { Acl, MemoryBackend } from '../../../../lib/Acl';
 import {
   Injectable,
   NestMiddleware,
@@ -15,11 +15,10 @@ export class ACLMiddleware implements NestMiddleware {
   resolve(...args: any[]): MiddlewareFunction {
     //   init acl and put it in req
     return (req, res, next) => {
-      // const acl = new Acl(
-      //   new Acl.mongodbBackend(this.connection.connection.db, 'acl_'),
-      // );
-      const acl = new Acl(new MemoryBackend());
-      acl.addUserRoles('casey', ['admin']);
+      const acl = new Acl(
+        new Acl.mongodbBackend(this.connection.connection.db, 'acl_'),
+      );
+      // const acl = new Acl(new MemoryBackend());
       req.acl = acl;
       next();
     };

@@ -5,7 +5,7 @@ import { default as Bull } from 'bull';
 
 @Injectable()
 export class PremiumQueueService {
-  private readonly queues: Array<object> = [];
+  private readonly queues: Array<any> = [];
   constructor(private readonly configService: ConfigService) {}
   async createQueue(name: string): Promise<any> {
     if (await this.findOne(name)) return await this.findOne(name);
