@@ -1,13 +1,13 @@
-import { Promise as BlueBirdPromise } from 'bluebird';
 import { union, difference, forEach } from 'lodash';
-import { Backend } from './backend.interface';
+import { each as promiseEach } from 'bluebird';
+import { Backend, AsyncFunc } from './interfaces';
 export class MemoryBackend implements Backend {
   private _buckets = {};
-  begin(): Function[] {
+  begin(): AsyncFunc[] {
     return [];
   }
-  async end(transaction: Function[]): Promise<any> {
-    const result = await BlueBirdPromise.each(transaction, func => func());
+  async end(transaction: AsyncFunc[]): Promise<any> {
+    const result = await promiseEach(transaction, func => func());
     return result;
   }
   async clean(): Promise<Boolean> {
@@ -25,7 +25,7 @@ export class MemoryBackend implements Backend {
     return null;
   }
   async add(
-    transaction: Function[],
+    transaction: AsyncFunc[],
     bucket: string,
     key: string,
     values: any[],
@@ -41,7 +41,7 @@ export class MemoryBackend implements Backend {
       }
     });
   }
-  async del(transaction: Function[], bucket: string, keys: string[]) {
+  async del(transaction: AsyncFunc[], bucket: string, keys: string[]) {
     transaction.push(async () => {
       if (this._buckets[bucket]) {
         forEach(keys, key => {
@@ -51,7 +51,7 @@ export class MemoryBackend implements Backend {
     });
   }
   async remove(
-    transaction: Function[],
+    transaction: AsyncFunc[],
     bucket: string,
     key: string,
     values: any[],

@@ -1,6 +1,6 @@
 // import { Promise as BuleBirdPromise } from 'bluebird';
 import { extend, find, forEach } from 'lodash';
-import { Backend } from './backend.interface';
+import { Backend } from './interfaces';
 import { allowsBucket } from './utils';
 
 export class Acl {
