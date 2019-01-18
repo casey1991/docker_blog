@@ -13,6 +13,7 @@ type Query {
 
 type Mutation {
   createMessage(roomId: ID!, text: String): Message!
+  updateMessage(messageId: ID!, text: String): Message!
 }
 
 type Subscription {

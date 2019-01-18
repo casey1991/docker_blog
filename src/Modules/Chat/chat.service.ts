@@ -39,13 +39,10 @@ export class ChatService {
     const createdMessage = new this.messageModel(message);
     return await createdMessage.save();
   }
-  async updateMessage(
-    roomId: string,
-    conditions: {},
-    update: {},
-  ): Promise<Message> {
-    const query = { room: { $in: [roomId] }, ...conditions };
-    return this.messageModel.findOneAndUpdate(query, update, { new: true });
+  async updateMessage(conditions: {}, update: {}): Promise<Message> {
+    return this.messageModel.findOneAndUpdate(conditions, update, {
+      new: true,
+    });
   }
   async deleteMessage(roomId: string, conditions: {}): Promise<Message> {
     const query = { room: { $in: [roomId] }, ...conditions };

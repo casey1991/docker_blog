@@ -61,6 +61,21 @@ export class MessageResolver {
     pubSub.publish('messageCreated', { messageCreated: createdMessage });
     return createdMessage;
   }
+  @UseGuards(GqlAuthGuard)
+  @Mutation('updateMessage')
+  async updateMessage(
+    @Args('messageId') messageId,
+    @Args() message,
+    @User() user,
+  ) {
+    const currentUser = user._id;
+    const updatedMessage = await this.chatService.updateMessage(
+      { _id: messageId, owner: currentUser },
+      message,
+    );
+    pubSub.publish('messageUpdated', { messageUpdated: updatedMessage });
+    return updatedMessage;
+  }
   // subscriptions
   @Subscription('messageCreated')
   messageCreated() {
@@ -82,6 +97,20 @@ export class MessageResolver {
   }
   @Subscription('messageUpdated')
   messageUpdated() {
-    return { subscribe: () => pubSub.asyncIterator('messageUpdated') };
+    return {
+      subscribe: withFilter(
+        () => pubSub.asyncIterator('messageUpdated'),
+        (rootValue?: any, args?: any) => {
+          const { roomId } = args;
+          const messageRoom = hasIn(rootValue, 'messageUpdated.room')
+            ? rootValue.messageUpdated.room
+            : null;
+          if (messageRoom.equals(roomId)) {
+            return true;
+          }
+          return false;
+        },
+      ),
+    };
   }
 }
