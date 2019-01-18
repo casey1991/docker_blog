@@ -6,7 +6,7 @@ import { Args } from '@nestjs/graphql';
 import { UserService } from './user.service';
 import { UseGuards } from '@nestjs/common';
 // guards
-import { GqlAuthGuard } from '../Auth/graphql-auth.guard';
+import { GqlAuthGuard } from '../../Common/Nest/Guards/graphql-auth.guard';
 @Resolver('User')
 export class UserResolver {
   constructor(private readonly userService: UserService) {}

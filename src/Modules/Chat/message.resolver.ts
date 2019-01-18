@@ -14,9 +14,9 @@ import { PubSub, withFilter } from 'graphql-subscriptions';
 import { ChatService } from './chat.service';
 import { UserService } from '../User/user.service';
 // guards
-import { GqlAuthGuard } from '../Auth/graphql-auth.guard';
+import { GqlAuthGuard } from '../../Common/Nest/Guards/graphql-auth.guard';
 // decorators
-import { User } from '../Auth/graphql-user-context.decorator';
+import { User } from '../../Common/Nest/Decorators/graphql-user-context.decorator';
 import { Message } from './Interfaces/message.interface';
 
 const pubSub = new PubSub();
