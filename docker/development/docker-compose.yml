@@ -10,8 +10,6 @@ services:
       - '6610:27017'
     environment:
       - MONGODB_REPLICA_SET_MODE=primary
-      - MONGODB_ROOT_PASSWORD=password
-      - MONGODB_REPLICA_SET_KEY=mongo_replica_set
     networks:
       - backend
   mongo_secondary:
@@ -26,8 +24,6 @@ services:
       - MONGODB_REPLICA_SET_MODE=secondary
       - MONGODB_PRIMARY_HOST=mongodb_primary
       - MONGODB_PRIMARY_PORT_NUMBER=27017
-      - MONGODB_PRIMARY_ROOT_PASSWORD=password
-      - MONGODB_REPLICA_SET_KEY=mongo_replica_set
     networks:
       - backend
   mongodb_arbiter:
@@ -42,8 +38,6 @@ services:
       - MONGODB_REPLICA_SET_MODE=arbiter
       - MONGODB_PRIMARY_HOST=mongodb_primary
       - MONGODB_PRIMARY_PORT_NUMBER=27017
-      - MONGODB_PRIMARY_ROOT_PASSWORD=password
-      - MONGODB_REPLICA_SET_KEY=mongo_replica_set
     networks:
       - backend
   mysql:
