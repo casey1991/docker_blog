@@ -22,7 +22,7 @@ services:
       - '6611:27017'
     environment:
       - MONGODB_REPLICA_SET_MODE=secondary
-      - MONGODB_PRIMARY_HOST=mongodb_primary
+      - MONGODB_PRIMARY_HOST=mongo_primary
       - MONGODB_PRIMARY_PORT_NUMBER=27017
       - MONGODB_PRIMARY_ROOT_PASSWORD=password
       - MONGODB_REPLICA_SET_KEY=replicaSet
@@ -36,7 +36,7 @@ services:
       - '6612:27017'
     environment:
       - MONGODB_REPLICA_SET_MODE=arbiter
-      - MONGODB_PRIMARY_HOST=mongodb_primary
+      - MONGODB_PRIMARY_HOST=mongo_primary
       - MONGODB_PRIMARY_PORT_NUMBER=27017
       - MONGODB_PRIMARY_ROOT_PASSWORD=password
       - MONGODB_REPLICA_SET_KEY=replicaSet
