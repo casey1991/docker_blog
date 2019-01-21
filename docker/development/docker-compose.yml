@@ -5,39 +5,41 @@ services:
     image: 'bitnami/mongodb:latest'
     restart: always
     volumes:
-      - ./db/mongo/primary/db:/bitnami
+      - ./db/mongo/db:/bitnami
     ports:
       - '6610:27017'
     environment:
       - MONGODB_REPLICA_SET_MODE=primary
+      - MONGODB_ROOT_PASSWORD=password
+      - MONGODB_REPLICA_SET_KEY=replicaSet
     networks:
       - backend
   mongo_secondary:
     container_name: 'mongo_secondary'
     image: 'bitnami/mongodb:latest'
     restart: always
-    volumes:
-      - ./db/mongo/secondary/db:/bitnami
     ports:
       - '6611:27017'
     environment:
       - MONGODB_REPLICA_SET_MODE=secondary
       - MONGODB_PRIMARY_HOST=mongodb_primary
       - MONGODB_PRIMARY_PORT_NUMBER=27017
+      - MONGODB_PRIMARY_ROOT_PASSWORD=password
+      - MONGODB_REPLICA_SET_KEY=replicaSet
     networks:
       - backend
   mongodb_arbiter:
     container_name: 'mongo_arbiter'
     image: 'bitnami/mongodb:latest'
     restart: always
-    volumes:
-      - ./db/mongo/arbiter/db:/bitnami
     ports:
       - '6612:27017'
     environment:
       - MONGODB_REPLICA_SET_MODE=arbiter
       - MONGODB_PRIMARY_HOST=mongodb_primary
       - MONGODB_PRIMARY_PORT_NUMBER=27017
+      - MONGODB_PRIMARY_ROOT_PASSWORD=password
+      - MONGODB_REPLICA_SET_KEY=replicaSet
     networks:
       - backend
   mysql:
