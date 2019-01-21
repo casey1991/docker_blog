@@ -12,6 +12,7 @@ services:
       - MONGODB_REPLICA_SET_MODE=primary
       - MONGODB_ROOT_PASSWORD=password
       - MONGODB_REPLICA_SET_KEY=replicaSet
+      - MONGODB_ADVERTISED_HOSTNAME=mongo_primary
     networks:
       - backend
   mongo_secondary:
@@ -26,9 +27,10 @@ services:
       - MONGODB_PRIMARY_PORT_NUMBER=27017
       - MONGODB_PRIMARY_ROOT_PASSWORD=password
       - MONGODB_REPLICA_SET_KEY=replicaSet
+      - MONGODB_ADVERTISED_HOSTNAME=mongo_secondary
     networks:
       - backend
-  mongodb_arbiter:
+  mongo_arbiter:
     container_name: 'mongo_arbiter'
     image: 'bitnami/mongodb:latest'
     restart: always
@@ -40,6 +42,7 @@ services:
       - MONGODB_PRIMARY_PORT_NUMBER=27017
       - MONGODB_PRIMARY_ROOT_PASSWORD=password
       - MONGODB_REPLICA_SET_KEY=replicaSet
+      - MONGODB_ADVERTISED_HOSTNAME=mongo_arbiter
     networks:
       - backend
   mysql:
