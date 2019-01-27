@@ -21,10 +21,7 @@ import { NoteModule } from './Modules/Note/note.module';
 import { ChatModule } from './Modules/Chat/chat.module';
 import { ACLMiddleware } from './Common/Nest/Middlewares/acl.middleware';
 // scalars
-import {
-  EmailAddress as Email,
-  DateTime as Date,
-} from './Common/Graphql/Scalars';
+import { Email, Date } from './Common/Graphql/Scalars';
 import { RoleModule } from './Modules/Role/role.module';
 @Module({
   imports: [

@@ -9,7 +9,7 @@ const EMAIL_ADDRESS_REGEX = new RegExp(
 /* eslint-enable */
 
 export default new GraphQLScalarType({
-  name: 'EmailAddress',
+  name: 'Email',
 
   description:
     'A field whose value conforms to the standard internet email address format as specified in RFC822: https://www.w3.org/Protocols/rfc822/.',

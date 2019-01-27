@@ -3,7 +3,7 @@ import { GraphQLError } from 'graphql/error';
 import { Kind } from 'graphql/language';
 
 export default new GraphQLScalarType({
-  name: 'DateTime',
+  name: 'Date',
 
   description: 'Use JavaScript Date object for date/time fields.',
 
