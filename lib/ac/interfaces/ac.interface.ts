@@ -1,5 +1,9 @@
-import {Group} from './group.interface';
+import { Role } from './role.interface';
 export interface AC {
-  userGroups(userId: string): Promise<Group[]>;
-  isAllowed(userId: string, resources: string[], permissions: string[]): Promise<boolean>;
+  userGroups(userId: string): Promise<Role[]>;
+  isAllowed(
+    userId: string,
+    resources: string[],
+    permissions: string[],
+  ): Promise<boolean>;
 }

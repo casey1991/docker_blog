@@ -4,11 +4,11 @@ import { PolicyService } from './policy.service';
 export class PolicyResolver {
   constructor(private readonly policyService: PolicyService) {}
   @Query()
-  async group() {
+  async policy() {
     return await this.policyService.findPolicy({});
   }
   @Query('policies')
-  async groups() {
+  async policies() {
     return await this.policyService.findPolicies({});
   }
   @Mutation('createPolicy')

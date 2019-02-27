@@ -1,17 +1,17 @@
-import { AC as ACInterface, Group, Policy } from './interfaces';
-import { GroupSchema, PolicySchema } from './schemas';
+import { AC as ACInterface, Role, Policy } from './interfaces';
+import { RoleSchema, PolicySchema } from './schemas';
 import { Connection, Model } from 'mongoose';
 import { map, uniq, every, find, each, concat, reduce } from 'lodash';
 export class AC implements ACInterface {
   private readonly _connection: Connection;
-  private readonly _groups: Model<Group>;
+  private readonly _roles: Model<Role>;
   private readonly _policies: Model<Policy>;
   constructor(connection: Connection) {
     this._connection = connection;
-    this._groups = this._connection.model('Groups', GroupSchema);
+    this._roles = this._connection.model('Groups', RoleSchema);
     this._policies = this._connection.model('Policies', PolicySchema);
   }
-  async userGroups(userId: string): Promise<Group[]> {
+  async userGroups(userId: string): Promise<Role[]> {
     return null;
   }
   async isAllowed(
@@ -19,9 +19,9 @@ export class AC implements ACInterface {
     resources: string[],
     permissions: string[],
   ): Promise<boolean> {
-    const groupDocs = await this._groups.find({ users: { $in: [userId] } });
-    if (!groupDocs) return false;
-    const policyIdArrays = map(groupDocs, group => group.policies);
+    const roleDocs = await this._roles.find({ users: { $in: [userId] } });
+    if (!roleDocs) return false;
+    const policyIdArrays = map(roleDocs, group => group.policies);
     let policyIds = reduce(
       policyIdArrays,
       (sum, n) => {

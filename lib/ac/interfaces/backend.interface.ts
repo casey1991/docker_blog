@@ -1,4 +1,4 @@
-import {AsyncFunc} from './async.interface';
+import { AsyncFunc } from './async.interface';
 export interface Backend {
   begin(): AsyncFunc[];
   end(transaction: AsyncFunc[]): Promise<boolean>;

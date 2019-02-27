@@ -1,2 +1,2 @@
-export * from './group.interface';
+export * from './role.interface';
 export * from './policy.interface';

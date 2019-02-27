@@ -6,21 +6,21 @@ import {
   ResolveProperty,
   Parent,
 } from '@nestjs/graphql';
-import { GroupService } from './group.service';
+import { RoleService } from './role.service';
 import { PolicyService } from '../Policy/policy.service';
-@Resolver('Group')
-export class GroupResolver {
+@Resolver('Role')
+export class RoleResolver {
   constructor(
-    private readonly groupSerivce: GroupService,
+    private readonly roleService: RoleService,
     private readonly policyService: PolicyService,
   ) {}
   @Query()
-  async group() {
-    return await this.groupSerivce.findGroup({});
+  async role() {
+    return await this.roleService.findRole({});
   }
-  @Query('groups')
-  async groups() {
-    return await this.groupSerivce.findGroups({});
+  @Query('roles')
+  async roles() {
+    return await this.roleService.findRoles({});
   }
   @ResolveProperty('users')
   async getUsers(@Parent() parent) {
@@ -32,22 +32,22 @@ export class GroupResolver {
       _id: { $in: parent.policies },
     });
   }
-  @Mutation('createGroup')
-  async createGroup(
+  @Mutation('createRole')
+  async createRole(
     @Args('name') name,
     @Args('users') users,
     @Args('policies') policies,
   ) {
-    return await this.groupSerivce.createGroup({ name, users, policies });
+    return await this.roleService.createRole({ name, users, policies });
   }
-  @Mutation('updateGroup')
-  async updateGroup(
+  @Mutation('updateRole')
+  async updateRole(
     @Args('id') id,
     @Args('name') name,
     @Args('users') users,
     @Args('policies') policies,
   ) {
-    return await this.groupSerivce.updateGroup(
+    return await this.roleService.updateRole(
       { _id: id },
       { name, users, policies },
     );

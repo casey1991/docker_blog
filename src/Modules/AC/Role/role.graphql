@@ -1,0 +1,16 @@
+# ../../User/user.graphql
+# ../Policy/policy.graphql
+type Role {
+  id: ID!
+  name: String!
+  users: [User]
+  policies: [Policy]
+}
+type Query {
+  role: Role
+  roles: [Role]
+}
+type Mutation {
+  createRole(name: String!, users: [ID], policies: [ID]): Role!
+  updateRole(id: ID!, name: String, users: [ID], policies: [ID]): Role!
+}

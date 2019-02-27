@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 const schemaTypes = mongoose.SchemaTypes;
-export const GroupSchema = new mongoose.Schema(
+export const RoleSchema = new mongoose.Schema(
   {
     name: { type: schemaTypes.String, required: true, unique: true },
     users: [{ type: schemaTypes.ObjectId, ref: 'Users' }],
