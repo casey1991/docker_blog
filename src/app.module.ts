@@ -10,6 +10,7 @@ import { GraphQLUpload } from 'graphql-upload';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 // modules
+import { ACModule } from './Modules/AC/ac.module';
 import { AuthModule } from './Modules/Auth/auth.module';
 import { UserModule } from './Modules/User/user.module';
 import { GoodsModule } from './Modules/Goods/goods.module';
@@ -19,15 +20,14 @@ import { PremiumQueueModule } from './Modules/PremiumQueue/premium-queue.module'
 import { FileModule } from './Modules/File/file.module';
 import { NoteModule } from './Modules/Note/note.module';
 import { ChatModule } from './Modules/Chat/chat.module';
-import { ACLMiddleware } from './Common/Nest/Middlewares/acl.middleware';
 // scalars
 import { Email, Date } from './Common/Graphql/Scalars';
-import { RoleModule } from './Modules/Role/role.module';
+import { ACMiddleware } from './Common/Nest/Middlewares/ac.middleware';
 @Module({
   imports: [
+    ACModule,
     AuthModule,
     UserModule,
-    RoleModule,
     ChatModule,
     GoodsModule,
     NoteModule,
@@ -53,7 +53,7 @@ import { RoleModule } from './Modules/Role/role.module';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(ACLMiddleware)
+      .apply(ACMiddleware)
       .forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }

@@ -1,0 +1,19 @@
+enum Action {
+  DELETE
+  EDIT
+  VIEW
+  CREATE
+}
+type Policy {
+  id: ID!
+  resource: String!
+  action: Action!
+}
+type Query {
+  policy: Policy!
+  policies: [Policy]
+}
+type Mutation {
+  createPolicy(resource: String!, action: Action!): Policy!
+  updatePolicy(id: ID!, resource: String!, action: Action!): Policy!
+}

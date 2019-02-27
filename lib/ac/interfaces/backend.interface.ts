@@ -1,9 +1,7 @@
-export interface AsyncFunc {
-  (): Promise<any>;
-}
+import {AsyncFunc} from './async.interface';
 export interface Backend {
   begin(): AsyncFunc[];
-  end(transaction: AsyncFunc[]): Promise<Boolean>;
+  end(transaction: AsyncFunc[]): Promise<boolean>;
   clean(): Promise<any>;
   get(bucket: string, key: string): Promise<any[]>;
   unions(buckets: string[], keys: string[]): Promise<any>;
